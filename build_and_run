@@ -1,0 +1,9 @@
+docker build -t madiedinro/geoip-sypexgeo .
+docker kill geoip-sypexgeo
+docker rm -f geoip-sypexgeo
+docker run -d \
+     --name geoip-sypexgeo \
+     --hostname=geoip-sypexgeo \
+     --restart=always \
+     -p 8087:8080 \
+     madiedinro/geoip-sypexgeo

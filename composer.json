@@ -1,0 +1,15 @@
+{
+  "name": "madiedinro/geoip-sypexgeo-daemon",
+  "description": "",
+  "require": {
+    "nategood/commando": "*",
+    "php": ">=7.1.0",
+    "react/http": "^0.7.4"
+  },
+  "authors": [
+    {
+      "name": "Dmitry Rodin",
+      "email": "madiedinro@gmail.com"
+    }
+  ]
+}
