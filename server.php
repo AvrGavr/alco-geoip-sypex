@@ -14,6 +14,11 @@ $cmd->option('p')
   ->default(8080)
   ->describedAs('Listen port');
 
+$cmd->option('h')
+  ->aka('host')
+  ->default('0.0.0.0')
+  ->describedAs('Listen address');
+
 $cmd->option('f')
   ->aka('file')
   ->default('SxGeoCity.dat')
@@ -85,10 +90,10 @@ $server = new \React\Http\Server(function (ServerRequestInterface $request) use 
   }
 });
 
-$socket = new \React\Socket\Server('0.0.0.0:' . $cmd['port'], $loop);
+$socket = new \React\Socket\Server($cmd['host'].':'.$cmd['port'], $loop);
 $server->listen($socket);
 
-echo "Starting server {$cmd['port']} \n";
+echo "Starting server {$cmd['host']}:{$cmd['port']} \n";
 
 $loop->run();
 

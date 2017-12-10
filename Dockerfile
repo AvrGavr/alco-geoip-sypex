@@ -26,4 +26,4 @@ ADD . /opt/app
 
 EXPOSE 8080
 
-CMD ["php", "server.php", "--host=0.0.0.0", "--port=8080"]
+CMD ["php", "server.php", "--host", "0.0.0.0", "--port", "8080"]
