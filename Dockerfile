@@ -3,13 +3,13 @@ FROM php:7.1-cli
 MAINTAINER Dmitry Rodin <madiedinro@gmail.com>
 
 RUN apt-get update \
-  && apt-get install -y libcurl4-openssl-dev libevent-dev libssl-dev git \
+  && apt-get install --no-install-recommends -y apt-utils libcurl4-openssl-dev libevent-dev libssl-dev git gzip wget unzip curl \
   && rm -rf /var/lib/apt/lists/* \
   && docker-php-source extract \
   && docker-php-ext-install sockets \
   && pecl install event\
   && pecl install eio \
-  && docker-php-ext-enable sockets event eio \
+  && docker-php-ext-enable event eio \
   && curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer
 
@@ -23,6 +23,9 @@ RUN mkdir -p /opt/app \
 # "layer" thats been cached will be used if possible
 WORKDIR /opt/app
 ADD . /opt/app
+
+# loading latest database
+RUN ./update_db
 
 EXPOSE 8080
 
