@@ -5,5 +5,6 @@ docker run -d \
      --name geoip-sypexgeo \
      --hostname=geoip-sypexgeo \
      --restart=always \
+     --net alconet \
      -p 8087:8080 \
      madiedinro/geoip-sypexgeo
