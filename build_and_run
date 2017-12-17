@@ -1,10 +1,10 @@
-docker build -t madiedinro/geoip-sypexgeo .
-docker kill geoip-sypexgeo
-docker rm -f geoip-sypexgeo
+docker build -t alcolytics/geoip-sypex .
+docker kill geoip-sypex
+docker rm -f geoip-sypex
 docker run -d \
-     --name geoip-sypexgeo \
-     --hostname=geoip-sypexgeo \
+     --name geoip-sypex \
+     --hostname=geoip-sypex \
      --restart=always \
      --net alconet \
-     -p 8087:8080 \
-     madiedinro/geoip-sypexgeo
+     -p 127.0.0.1:8087:8080 \
+     alcolytics/geoip-sypex

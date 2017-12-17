@@ -2,6 +2,8 @@ FROM php:7.1-cli
 
 MAINTAINER Dmitry Rodin <madiedinro@gmail.com>
 
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
 RUN apt-get update \
   && apt-get install --no-install-recommends -y apt-utils libcurl4-openssl-dev libevent-dev libssl-dev git gzip wget unzip curl \
   && rm -rf /var/lib/apt/lists/* \

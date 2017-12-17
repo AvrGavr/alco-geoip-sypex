@@ -1,3 +1,2 @@
-wget -q https://sypexgeo.net/files/SxGeoCity_utf8.zip
-unzip SxGeoCity_utf8.zip
-rm -rf SxGeoCity_utf8.zip
+
+wget -q https://sypexgeo.net/files/SxGeoCity_utf8.zip && unzip SxGeoCity_utf8.zip && rm -rf SxGeoCity_utf8.zip

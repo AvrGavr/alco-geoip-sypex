@@ -24,22 +24,20 @@ $cmd->option('f')
   ->default('SxGeoCity.dat')
   ->describedAs('Database file');
 
-echo "Loading device database\n";
+echo "Loading database\n";
 
-// SxGeo class is not a composer package =(
 require 'SxGeo.php';
 
 $loop = React\EventLoop\Factory::create();
 
 if (file_exists($cmd['file']) === false || is_readable($cmd['file']) === false) {
-  echo "Unable to open SypexGEO data file: \"{$cmd['file']}\"\n";
+  echo "File not found: \"{$cmd['file']}\"\n";
   exit(1);
 }
 
 try {
   $SxGeo = new SxGeo($cmd['file'], SXGEO_BATCH | SXGEO_MEMORY);
 } catch (Exception $e) {
-  echo "Unable to create SypexGEO class on data file: \"{$cmd['file']}\"\n";
   echo "Error: " . $e->getMessage() . "\n";
   exit(1);
 }
@@ -47,6 +45,15 @@ try {
 $server = new \React\Http\Server(function (ServerRequestInterface $request) use ($SxGeo) {
 
   switch ($request->getUri()->getPath()) {
+
+    case '/status':
+
+      return new Response(
+        200,
+        array('Content-Type' => 'application/json'),
+        json_encode(['success' => true])
+      );
+
     case '/query':
 
       $startTime = microtime(true);
@@ -60,12 +67,12 @@ $server = new \React\Http\Server(function (ServerRequestInterface $request) use 
 
           $result = $SxGeo->getCityFull($ip);
           $result['execution'] = number_format(microtime(true) - $startTime, 12);
-          $result['error'] = false;
+          $result['success'] = true;
 
 
         } catch (\Exception $e) {
           $result = [
-            'error' => true,
+            'success' => false,
             'message' => $e->getMessage(),
             'line' => $e->getLine(),
             'file' => $e->getFile(),
@@ -75,7 +82,7 @@ $server = new \React\Http\Server(function (ServerRequestInterface $request) use 
         }
       } else {
         $result = [
-          'error' => true,
+          'success' => false,
           'message' => 'Bad arguments',
         ];
       }
