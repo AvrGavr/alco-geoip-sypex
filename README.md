@@ -9,7 +9,7 @@
 
 Прежде всего, необходимо создать образ. Сделать это можно с помощью команды:
 
-    docker build -t madiedinro/geoip-sypex
+    docker build -t alcolytics/geoip-sypex
 
 При создании контейнера в него будет загружена последняя версия базы геокодинга.
 Для того, чтобы принимать запросы с внешних адресов, укажите `-p [<host>:]<port>:<port>`.
@@ -20,7 +20,7 @@
          --hostname=geoip-sypex \
          --restart=always \
          -p 8087:8080 \
-         madiedinro/geoip-sypex
+         alcolytics/geoip-sypex
 
 
 ## Стандартный запуск 
@@ -86,7 +86,7 @@
 
 Работоспособность сервиса проверяется по адресу `/status`. Пример:
      
-    curl http://127.0.0.1:8087/?status
+    curl http://127.0.0.1:8087/status
 
 
 ## Лицензия
